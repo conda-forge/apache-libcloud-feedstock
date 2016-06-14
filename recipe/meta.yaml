@@ -10,6 +10,7 @@ source:
   sha1: fbf558d7e52336042dd9a456dec3a73f4b35e38e
 
   patches:
+    # Temporal patch to apply PR https://github.com/apache/libcloud/pull/812
     - certifi.patch
 
 build:
