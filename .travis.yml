@@ -30,8 +30,8 @@ install:
       export PATH=/Users/travis/miniconda3/bin:$PATH
 
       conda config --set show_channel_urls true
-      conda update --yes conda
-      conda install --yes conda-build=1.20.0 jinja2 anaconda-client
+      conda update --yes conda=4.0.8
+      conda install --yes conda-build=1.20.0 jinja2 anaconda-client conda=4.0.8
       conda config --add channels conda-forge
       conda install conda=4.0.8
 
