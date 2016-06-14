@@ -9,6 +9,9 @@ source:
   url: http://apache.osuosl.org/libcloud/apache-libcloud-{{ version }}.tar.bz2
   sha1: fbf558d7e52336042dd9a456dec3a73f4b35e38e
 
+  patches:
+    - certifi.patch
+
 build:
   number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt
@@ -19,6 +22,7 @@ requirements:
     - setuptools
   run:
     - python
+    - certifi
 
 test:
   imports:

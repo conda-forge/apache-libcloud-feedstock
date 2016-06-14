@@ -1,0 +1,89 @@
+--- libcloud/security.py
++++ libcloud/security.py
+@@ -36,6 +36,10 @@ VERIFY_SSL_CERT = True
+
+ SSL_VERSION = ssl.PROTOCOL_TLSv1
+
++# True to use certifi CA bundle path when certifi library is available
++USE_CERTIFI = os.environ.get('LIBCLOUD_SSL_USE_CERTIFI', True)
++USE_CERTIFI = str(USE_CERTIFI).lower() in ['true', '1']
++
+ # File containing one or more PEM-encoded CA certificates
+ # concatenated together.
+ CA_CERTS_PATH = [
+@@ -74,6 +78,19 @@ if environment_cert_file is not None:
+     # don't want to fall-back to a potentially less restrictive bundle
+     CA_CERTS_PATH = [environment_cert_file]
+
++# Insert certifi CA bundle path to the front of Libcloud CA bundle search
++# path if certifi is available
++try:
++    import certifi
++except ImportError:
++    has_certifi = False
++else:
++    has_certifi = True
++
++if has_certifi and USE_CERTIFI:
++    certifi_ca_bundle_path = certifi.where()
++    CA_CERTS_PATH.insert(0, certifi_ca_bundle_path)
++
+ CA_CERTS_UNAVAILABLE_ERROR_MSG = (
+     'No CA Certificates were found in CA_CERTS_PATH. For information on '
+     'how to get required certificate files, please visit '
+--- libcloud/test/test_httplib_ssl.py
++++ libcloud/test/test_httplib_ssl.py
+@@ -105,6 +105,53 @@ class TestHttpLibSSLTests(unittest.TestCase):
+         self.assertRaisesRegexp(RuntimeError, expected_msg,
+                                 self.httplib_object._setup_ca_cert)
+
++    def test_certifi_ca_bundle_in_search_path(self):
++        mock_certifi_ca_bundle_path = '/certifi/bundle/path'
++
++        # Certifi not available
++        import libcloud.security
++        reload(libcloud.security)
++
++        original_length = len(libcloud.security.CA_CERTS_PATH)
++
++        self.assertTrue(mock_certifi_ca_bundle_path not in
++                        libcloud.security.CA_CERTS_PATH)
++
++        # Certifi is available
++        mock_certifi = mock.Mock()
++        mock_certifi.where.return_value = mock_certifi_ca_bundle_path
++        sys.modules['certifi'] = mock_certifi
++
++        # Certifi CA bundle path should be injected at the begining of search list
++        import libcloud.security
++        reload(libcloud.security)
++
++        self.assertEqual(libcloud.security.CA_CERTS_PATH[0],
++                         mock_certifi_ca_bundle_path)
++        self.assertEqual(len(libcloud.security.CA_CERTS_PATH),
++                         (original_length + 1))
++
++        # Certifi is available, but USE_CERTIFI is set to False
++        os.environ['LIBCLOUD_SSL_USE_CERTIFI'] = 'false'
++
++        import libcloud.security
++        reload(libcloud.security)
++
++        self.assertTrue(mock_certifi_ca_bundle_path not in
++                        libcloud.security.CA_CERTS_PATH)
++        self.assertEqual(len(libcloud.security.CA_CERTS_PATH), original_length)
++
++        # And enabled
++        os.environ['LIBCLOUD_SSL_USE_CERTIFI'] = 'true'
++
++        import libcloud.security
++        reload(libcloud.security)
++
++        self.assertEqual(libcloud.security.CA_CERTS_PATH[0],
++                         mock_certifi_ca_bundle_path)
++        self.assertEqual(len(libcloud.security.CA_CERTS_PATH),
++                         (original_length + 1))
++
+
+ if __name__ == '__main__':
+     sys.exit(unittest.main())
