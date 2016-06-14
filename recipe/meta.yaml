@@ -1,4 +1,4 @@
-{% set version = "0.18.0" %}
+{% set version = "0.20.1" %}
 
 package:
   name: apache-libcloud
@@ -7,7 +7,7 @@ package:
 source:
   fn: apache-libcloud-{{ version }}.tar.bz2
   url: http://apache.osuosl.org/libcloud/apache-libcloud-{{ version }}.tar.bz2
-  sha1: fbf558d7e52336042dd9a456dec3a73f4b35e38e
+  sha1: c5552e586cb9f4db6c4bdb927228901545048442
 
   patches:
     # Temporal patch to apply PR https://github.com/apache/libcloud/pull/812
