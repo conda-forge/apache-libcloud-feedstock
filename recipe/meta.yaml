@@ -29,6 +29,9 @@ test:
   imports:
     - libcloud
 
+  files:
+    - certifi_test.py
+
   commands:
     - python certifi_test.py
 
