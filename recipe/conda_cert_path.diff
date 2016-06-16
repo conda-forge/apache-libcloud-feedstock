@@ -1,0 +1,14 @@
+diff --git libcloud/security.py libcloud/security.py
+index 4d024db..45fd235 100644
+--- libcloud/security.py
++++ libcloud/security.py
+@@ -39,6 +39,9 @@ SSL_VERSION = ssl.PROTOCOL_TLSv1
+ # File containing one or more PEM-encoded CA certificates
+ # concatenated together.
+ CA_CERTS_PATH = [
++    # conda cert path
++    '%PREFIX%/ssl/cacert.pem',
++
+     # centos/fedora: openssl
+     '/etc/pki/tls/certs/ca-bundle.crt',
+ 

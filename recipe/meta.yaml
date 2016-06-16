@@ -8,10 +8,16 @@ source:
   fn: apache-libcloud-{{ version }}.tar.bz2
   url: http://apache.osuosl.org/libcloud/apache-libcloud-{{ version }}.tar.bz2
   sha1: fbf558d7e52336042dd9a456dec3a73f4b35e38e
+  patches:
+    # Ensure our certificates are first on the path.
+    - conda_cert_path.diff
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 1
+  script:
+    # Replace filer test with full prefix.
+    - python -c "import os; s = open('libcloud/security.py', 'r').read().replace('%PREFIX%', os.environ['PREFIX']); open('libcloud/security.py', 'w').write(s)"
+    - python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
   build:
@@ -23,6 +29,9 @@ requirements:
 test:
   imports:
     - libcloud
+
+  commands:
+    - python -c "from libcloud.security import CA_CERTS_PATH; print(CA_CERTS_PATH[0])"
 
 about:
   home: http://libcloud.apache.org
