@@ -9,8 +9,12 @@ source:
   url: http://apache.osuosl.org/libcloud/apache-libcloud-{{ version }}.tar.bz2
   sha1: fbf558d7e52336042dd9a456dec3a73f4b35e38e
 
+  patches:
+    # Temporal patch to apply PR https://github.com/apache/libcloud/pull/812
+    - certifi.patch
+
 build:
-  number: 0
+  number: 1
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
@@ -19,10 +23,17 @@ requirements:
     - setuptools
   run:
     - python
+    - certifi
 
 test:
   imports:
     - libcloud
+
+  files:
+    - certifi_test.py
+
+  commands:
+    - python certifi_test.py
 
 about:
   home: http://libcloud.apache.org
