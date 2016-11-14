@@ -1,4 +1,4 @@
-{% set version = "0.20.1" %}
+{% set version = "1.3.0" %}
 
 package:
   name: apache-libcloud
@@ -7,11 +7,8 @@ package:
 source:
   fn: apache-libcloud-{{ version }}.tar.bz2
   url: http://apache.osuosl.org/libcloud/apache-libcloud-{{ version }}.tar.bz2
-  sha1: c5552e586cb9f4db6c4bdb927228901545048442
+  sha1: 1ab541777968ee0af8aff4d921f547167b7d9ac8
 
-  patches:
-    # Temporal patch to apply PR https://github.com/apache/libcloud/pull/812
-    - certifi.patch
 
 build:
   number: 1
@@ -37,10 +34,11 @@ test:
 
 about:
   home: http://libcloud.apache.org
-  license: Apache License 2.0
+  license: Apache-2.0
   summary: Python library for interacting with many of the popular cloud service providers using a unified API
 
 extra:
   recipe-maintainers:
     - danielfrg
     - nmadhok
+    - tonybaloney
