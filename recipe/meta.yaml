@@ -1,6 +1,6 @@
-{%set name = "apache-libcloud" %}
+{% set name = "apache-libcloud" %}
 {% set version = "2.4.0" %}
-{%set hash_type = "sha256" %}
+{% set hash_type = "sha256" %}
 {% set hash_val = "125c410996b84464b426922f1398a317869f27173a6461e32f3b1dfe671d5235" %}
 
 package:
@@ -14,7 +14,7 @@ source:
 
 build:
   number: 1000
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: "{{ PYTHON }} -m pip install . -vvv"
 
 requirements:
   build:
