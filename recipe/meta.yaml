@@ -13,11 +13,13 @@ source:
   {{ hash_type }}: {{ hash_val }}
 
 build:
+  noarch: python
   number: 1000
   script: "{{ PYTHON }} -m pip install . -vvv"
 
 requirements:
-  build:
+  host:
+    - pip
     - python
     - setuptools
     - pip
