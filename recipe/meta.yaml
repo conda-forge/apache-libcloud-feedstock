@@ -1,7 +1,7 @@
 {% set name = "apache-libcloud" %}
-{% set version = "2.4.0" %}
+{% set version = "2.5.0" %}
 {% set hash_type = "sha256" %}
-{% set hash_val = "125c410996b84464b426922f1398a317869f27173a6461e32f3b1dfe671d5235" %}
+{% set hash_val = "8f133038710257d39f9092ccaea694e31f7f4fe02c11d7fcc2674bc60a9448b6" %}
 
 package:
   name: {{ name }}
@@ -14,7 +14,7 @@ source:
 
 build:
   noarch: python
-  number: 1001
+  number: 0
   script: "{{ PYTHON }} -m pip install . -vvv"
 
 requirements:
