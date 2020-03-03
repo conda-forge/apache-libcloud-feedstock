@@ -1,7 +1,6 @@
 {% set name = "apache-libcloud" %}
-{% set version = "2.8.0" %}
-{% set hash_type = "sha256" %}
-{% set hash_val = "3387a10d2f4df8cf9edb3159e07bcd8087b5e06f85de94b661ffea61d827a5c4" %}
+{% set version = "2.8.1" %}
+{% set hash_val = "c76d6c28c724aed46067d540facc512438362d1c8d02a7e5202864f8ed756e20" %}
 
 package:
   name: {{ name }}
@@ -10,12 +9,12 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  {{ hash_type }}: {{ hash_val }}
+  sha256: {{ hash_val }}
 
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vvv"
+  script: {{ PYTHON }} -m pip install . -vvv
 
 requirements:
   host:
@@ -34,6 +33,7 @@ test:
 about:
   home: http://libcloud.apache.org
   license: Apache 2.0
+  license_file: LICENSE
   summary: Python library for interacting with many of the popular cloud service providers using a unified API
 
 extra:
