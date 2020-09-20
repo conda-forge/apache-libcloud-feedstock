@@ -5,7 +5,7 @@ Home: http://libcloud.apache.org
 
 Package license: Apache 2.0
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: Python library for interacting with many of the popular cloud service providers using a unified API
 
