@@ -1,6 +1,6 @@
 {% set name = "apache-libcloud" %}
-{% set version = "3.3.1" %}
-{% set hash_val = "d7450453eaf5904eb4fb4f74cf9f37dc83721a719bce34f5abb336b1a1ab974d" %}
+{% set version = "3.4.1" %}
+{% set hash_val = "88f18da0cf3fac0af723e743fb741d9d1be251881edab7a5a0d1629955b5011b" %}
 
 package:
   name: {{ name }}
