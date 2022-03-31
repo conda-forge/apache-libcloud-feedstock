@@ -32,7 +32,7 @@ test:
 
 about:
   home: http://libcloud.apache.org
-  license: Apache 2.0
+  license: Apache-2.0
   license_file: LICENSE
   summary: Python library for interacting with many of the popular cloud service providers using a unified API
 
