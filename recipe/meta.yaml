@@ -1,34 +1,36 @@
 {% set name = "apache-libcloud" %}
 {% set version = "3.5.1" %}
-{% set hash_val = "ec92c39478fe90a27e3cfe886c43cbcb989a4593c239ff9f2c1dd77520863cf2" %}
+
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ hash_val }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/apache-libcloud-{{ version }}.tar.gz
+  sha256: ec92c39478fe90a27e3cfe886c43cbcb989a4593c239ff9f2c1dd77520863cf2
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . -vvv
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python
-    - setuptools
-    - pip
+    - python >=3.6,<4.0
   run:
-    - python
-    - certifi
+    - python >=3.6,<4.0
+    - requests >=2.26.0
 
 test:
   imports:
     - libcloud
+    - libcloud.backup
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: http://libcloud.apache.org
@@ -38,5 +40,6 @@ about:
 
 extra:
   recipe-maintainers:
+    - chrisburr
     - nmadhok
     - tonybaloney
