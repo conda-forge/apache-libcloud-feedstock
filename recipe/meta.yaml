@@ -1,5 +1,5 @@
 {% set name = "apache-libcloud" %}
-{% set version = "3.9.0" %}
+{% set version = "3.9.1" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name | replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: ace0a87f6d9709c561390f4cb8fcc3b6ddd82af8cddc6f6807fdfeff5aa51a4a
+  sha256: b65eaa5ac32b28a0f9555e6a223dba39e73b99b682cd849624587ce7bc251661
 
 build:
   number: 0
